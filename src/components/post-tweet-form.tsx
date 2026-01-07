@@ -109,6 +109,9 @@ export default function PostTweetForm() {
           photo: url,
         })
       }
+
+      setTweet("");
+      setFile(null);
     } catch(e) {
       console.log(e);
     } finally {
