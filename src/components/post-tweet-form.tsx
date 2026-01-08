@@ -88,7 +88,7 @@ export default function PostTweetForm() {
     const user = auth.currentUser;
 
     if (!user || isLoading || tweet === "" || tweet.length > 180
-        || (file && file!.size > 1 * 1024 * 1024)) return;
+        || (file != null && file!.size > 1 * 1024 * 1024)) return;
     // 파일 크기가 1MB를 넘지 않게 함
 
     try {
@@ -102,10 +102,10 @@ export default function PostTweetForm() {
         userId: user.uid
       });
 
-      if (file) {
-        const locationRef = ref(storage, `tweets/${user.uid}-${user.displayName}/${doc.id}`);
+      if (file != null) {
+        const locationRef = ref(storage, `tweets/${user.uid}/${doc.id}`);
         const result = await uploadBytes(locationRef, file);
-        const url = getDownloadURL(result);
+        const url = await getDownloadURL(result.ref);
 
         await updateDoc(doc, {
           photo: url,
