@@ -8,13 +8,13 @@ import { getFirestore } from "firebase/firestore";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyDfcxvKxOAChyPaRTuG6QdgLPltIWSL1oI",
+  apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
   authDomain: "nwitter-reloaded-de1c0.firebaseapp.com",
   projectId: "nwitter-reloaded-de1c0",
   storageBucket: "nwitter-reloaded-de1c0.firebasestorage.app",
   messagingSenderId: "910063739444",
   appId: "1:910063739444:web:8adf6e8d5be93f09d66061"
-};
+}
 
 // Initialize Firebase
 // config 옵션을 통해 app 생성

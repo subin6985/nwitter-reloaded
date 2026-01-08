@@ -87,7 +87,9 @@ export default function PostTweetForm() {
 
     const user = auth.currentUser;
 
-    if (!user || isLoading || tweet === "" || tweet.length > 180) return;
+    if (!user || isLoading || tweet === "" || tweet.length > 180
+        || (file && file!.size > 1 * 1024 * 1024)) return;
+    // 파일 크기가 1MB를 넘지 않게 함
 
     try {
       setIsLoading(true);
