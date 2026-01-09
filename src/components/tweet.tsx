@@ -42,10 +42,14 @@ const DeleteButton = styled.button`
   text-transform: uppercase;
   border-radius: 5px;
   cursor: pointer;
+  &:hover,
+  &:active {
+    opacity: 0.9;
+  }
 `;
 
 const EditButton = styled.button`
-  background-color: dodgerblue;
+  background-color: #1d9bf0;
   color: white;
   font-weight: 600;
   border: 0;
@@ -55,6 +59,10 @@ const EditButton = styled.button`
   text-transform: uppercase;
   border-radius: 5px;
   cursor: pointer;
+  &:hover,
+  &:active {
+    opacity: 0.9;
+  }
 `;
 
 export default function Tweet({username, photo, tweet, userId, id}: ITweet) {
