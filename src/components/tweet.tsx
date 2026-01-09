@@ -3,6 +3,8 @@ import type {ITweet} from "./timeline.tsx";
 import {auth, db, storage} from "../firebase.ts";
 import {deleteDoc, doc} from "firebase/firestore";
 import {ref, deleteObject} from "firebase/storage";
+import {useState} from "react";
+import EditTweet from "./edit-tweet.tsx";
 
 const Wrapper = styled.div`
   display: grid;
@@ -42,8 +44,23 @@ const DeleteButton = styled.button`
   cursor: pointer;
 `;
 
+const EditButton = styled.button`
+  background-color: dodgerblue;
+  color: white;
+  font-weight: 600;
+  border: 0;
+  font-size: 12px;
+  padding: 5px 10px;
+  margin-left: 5px;
+  text-transform: uppercase;
+  border-radius: 5px;
+  cursor: pointer;
+`;
+
 export default function Tweet({username, photo, tweet, userId, id}: ITweet) {
   const user = auth.currentUser;
+
+  const [editMode, setEditMode] = useState(false);
 
   // 로그인 한 유저가 작성자와 같을 경우에만 삭제 가능
   const onDelete = async() => {
@@ -64,14 +81,32 @@ export default function Tweet({username, photo, tweet, userId, id}: ITweet) {
     }
   }
 
+  const onEdit = () => {
+    if (user?.uid !== auth.currentUser?.uid) return;
+
+    setEditMode(true);
+  }
+
   return (
       <Wrapper>
         <Column>
           <Username>{username}</Username>
-          <Payload>{tweet}</Payload>
-          {user?.uid === userId && <DeleteButton onClick={onDelete}>Delete</DeleteButton>}
+          {editMode ? (
+              <EditTweet
+                originalTweet={tweet}
+                photo={photo}
+                id={id}
+                setEditMode={setEditMode}
+              />
+              ) : (
+                  <>
+                    <Payload>{tweet}</Payload>
+                    {user?.uid === userId && <DeleteButton onClick={onDelete}>Delete</DeleteButton>}
+                    {user?.uid === userId && <EditButton onClick={onEdit}>Edit</EditButton>}
+                  </>
+          )}
         </Column>
-        {photo ? (
+        {(!editMode && photo) ? (
             <Column>
               <Photo src={photo} />
             </Column>
