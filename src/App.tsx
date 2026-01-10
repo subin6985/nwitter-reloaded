@@ -1,4 +1,5 @@
-import {createBrowserRouter, RouteObject, RouterProvider} from "react-router-dom";
+import {createBrowserRouter, RouterProvider} from "react-router-dom";
+import type {RouteObject} from "react-router-dom";
 import Layout from "./components/layout.tsx";
 import Home from "./routes/home.tsx";
 import Profile from "./routes/profile.tsx";

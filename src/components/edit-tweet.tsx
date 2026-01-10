@@ -82,7 +82,14 @@ const EditBtn = styled.input`
   }
 `;
 
-export default function EditTweet({originalTweet, photo, id, setEditMode}) {
+interface EditTweetProps {
+  originalTweet: string;
+  photo?: string | null;
+  id: string;
+  setEditMode: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+export default function EditTweet({originalTweet, photo, id, setEditMode}: EditTweetProps) {
   const [isLoading, setIsLoading] = useState(false);
   const [file, setFile] = useState<File|null>(null);
   const [tweet, setTweet] = useState(originalTweet);

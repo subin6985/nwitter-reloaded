@@ -3,8 +3,7 @@ import styled from "styled-components";
 import {collection, query, orderBy, limit, onSnapshot} from "firebase/firestore";
 import {db} from "../firebase.ts";
 import Tweet from "./tweet.tsx";
-import firebase from "firebase/compat";
-import Unsubscribe = firebase.Unsubscribe;
+import type {Unsubscribe} from "firebase/firestore";
 
 export interface ITweet {
   id:string;
@@ -20,6 +19,9 @@ const Wrapper = styled.div`
   gap: 10px;
   flex-direction: column;
   overflow-y: scroll;
+  &::-webkit-scrollbar {
+    display: none;
+  }
 `;
 
 export default function Timeline() {
@@ -63,6 +65,7 @@ export default function Timeline() {
       <Wrapper>
         {tweets.map(tweet =>
             <Tweet key={tweet.id}
+                   createdAt={tweet.createdAt}
                    username={tweet.username}
                    photo={tweet.photo}
                    tweet={tweet.tweet}

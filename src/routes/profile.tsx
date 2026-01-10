@@ -204,7 +204,7 @@ export default function Profile() {
                   rows={1}
                   maxLength={10}
                   onChange={onChange}
-                  value={name}
+                  value={name ?? ""}
               />
               <EditCancelBtn onClick={() => setEditMode(false)}>Edit Cancel</EditCancelBtn>
               <EditCompleteBtn onClick={onNameChange}>Edit Complete</EditCompleteBtn>
